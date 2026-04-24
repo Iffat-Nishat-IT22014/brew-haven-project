@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { ArrowRight, Coffee, ShieldCheck, Truck, Clock } from 'lucide-react';
 import bgImage from '../assets/bg_main.png';
 import bgImageCTA from '../assets/dashboard_bg.jpg';
+import CoffeeHero from '../components/CoffeeHero';
 
 const Home = () => {
   return (
@@ -21,34 +22,8 @@ const Home = () => {
       <div className="relative z-10 flex flex-col gap-20 pb-20">
 
         {/* Hero Section */}
-        <section className="relative h-[80vh] flex items-center overflow-hidden">
-          <div className="container mx-auto px-4 md:px-8 text-amber-950/90">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="max-w-2xl"
-            >
-              <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
-                Start Your Day with a <span className="text-amber-950/90">Perfect</span> Brew
-              </h1>
-              <p className="text-xl text-amber-950/90 mb-8 font-light leading-relaxed">
-                Experience the art of coffee making. From farm to cup, we ensure every sip tells a story of quality and passion.
-              </p>
-
-              <div className="flex flex-wrap gap-4">
-                <Link to="/menu" className="btn bg-amber-950   text-white rounded-4xl px-10 py-2 border-amber-950 hover:bg-white hover:text-amber-950 gap-2">
-                  Order Now <ArrowRight size={20} />
-                </Link>
-                <Link
-                  to="/about"
-                  className="btn bg-white text-amber-950 rounded-4xl px-10 py-2 border-amber-950 hover:bg-amber-950 hover:text-white"
-                >
-                  Our Story
-                </Link>
-              </div>
-            </motion.div>
-          </div>
+        <section>
+          <CoffeeHero></CoffeeHero>
         </section>
 
         {/* Features Section */}
