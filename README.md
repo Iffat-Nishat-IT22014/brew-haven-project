@@ -1,20 +1,99 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# ☕ Brew Haven – Coffee Shop Management System
 
-# Run and deploy your AI Studio app
+A full-stack web application designed to manage a coffee shop’s daily operations including orders, inventory, and admin control.
 
-This contains everything you need to run your app locally.
+---
 
-View your app in AI Studio: https://ai.studio/apps/0c6d21fd-1f83-4cd6-b697-b64ff454c554
+## 📌 Project Overview
 
-## Run Locally
+**Brew Haven** is a modern web-based system that helps streamline coffee shop management. It allows efficient handling of customer orders, product listings, and backend operations.
 
-**Prerequisites:**  Node.js
+---
+
+## 🚀 Features
+
+* 🛒 Order Management System
+* 📦 Inventory Tracking
+* 👨‍💼 Admin Dashboard
+* 💳 Billing / Checkout System
+* 📊 Data Storage with SQLite
+* 🌐 Responsive UI
+
+---
+
+## 🛠️ Tech Stack
+
+* **Frontend:** HTML, CSS, JavaScript
+* **Backend:** Node.js
+* **Database:** SQLite
+* **Other Tools:** npm, Express.js
+
+---
+
+## 📂 Project Structure
+
+```
+brew-haven-project/
+│── src/                # Source files
+│── index.html          # Main frontend file
+│── server.js           # Backend server
+│── db.js               # Database configuration
+│── database.sqlite     # Database file
+│── package.json        # Dependencies & scripts
+│── README.md           # Project documentation
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/your-username/brew-haven-project.git
+cd brew-haven-project
+```
+
+### 2️⃣ Install dependencies
+
+```bash
+npm install
+```
+
+### 3️⃣ Run the project
+
+```bash
+npm run dev
+```
+
+---
+
+## 🔑 Environment Variables
+
+Create a `.env` or `.env.local` file (if needed):
+
+```
+PORT=3000
+```
 
 
-1. Install dependencies: 
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## 🎯 Future Improvements
+
+* User authentication system
+* Online payment integration
+* Mobile app version
+* Advanced analytics dashboard
+
+---
+
+## 👤 Author
+
+**Iffat Nishat**
+ICT Student, MBSTU
+---
+
+## ⭐ Support
+
+If you like this project, give it a ⭐ on GitHub!
+
+---
