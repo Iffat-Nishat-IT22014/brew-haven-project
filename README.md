@@ -86,6 +86,13 @@ PORT=3000
 
 ---
 
+🔐 Admin Login (Demo)
+
+You can use the following demo credentials to access the admin panel:
+
+Email: admin@brewhaven.com
+Password: admin123
+
 ## 👤 Author
 
 **Iffat Nishat**
