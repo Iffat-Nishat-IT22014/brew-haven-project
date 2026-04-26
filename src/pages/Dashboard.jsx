@@ -40,7 +40,7 @@ const Dashboard = () => {
   const updateStatus = async (orderId, status) => {
     try {
       const res = await axios.patch(
-        `http://localhost:3000/api/orders/${orderId}/status`,
+        `https://brew-haven-jo83.onrender.com//api/orders/${orderId}/status`,
         { status },
         {
           headers: { Authorization: `Bearer ${token}` }

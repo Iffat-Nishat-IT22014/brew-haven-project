@@ -25,7 +25,7 @@ const Menu = () => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get(
-          'http://localhost:3000api/products',
+          'https://brew-haven-jo83.onrender.com/api/products',
           { timeout: 8000 }
         );
 
