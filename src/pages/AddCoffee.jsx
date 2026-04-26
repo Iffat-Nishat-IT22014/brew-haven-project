@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const AddCoffee = () => {
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
+
+  // 🔒 admin ছাড়া access নাই
+  useEffect(() => {
+    if (!user || user.role !== 'admin') {
+      Swal.fire({
+        icon: "error",
+        title: "Admin access only!"
+      });
+      navigate('/');
+    }
+  }, [user]);
 
   const handleAddCoffee = async (e) => {
     e.preventDefault();
@@ -20,13 +31,12 @@ const AddCoffee = () => {
     const payload = {
       name: data.name,
       category: data.category,
-      price: parseFloat(data.price),
+      price: Number(data.price),
       image: data.photo,
       description: data.details
     };
 
-    // validation
-    if (!payload.name || !payload.price || !payload.image) {
+    if (!payload.name || !data.price || !payload.image) {
       return Swal.fire({
         icon: "warning",
         title: "Fill all required fields!"
@@ -36,11 +46,15 @@ const AddCoffee = () => {
     try {
       setLoading(true);
 
-      await axios.post('https://brew-haven-jo83.onrender.com/api/products', payload, {
-        headers: {
-          Authorization: `Bearer ${token}`
+      await axios.post(
+        'https://brew-haven-jo83.onrender.com/api/products',
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
-      });
+      );
 
       Swal.fire({
         icon: "success",
@@ -48,15 +62,14 @@ const AddCoffee = () => {
       });
 
       form.reset();
-
-      // redirect like previous version
       setTimeout(() => navigate('/menu'), 1500);
 
     } catch (error) {
-      console.error(error);
+      console.error(error.response?.data || error.message);
+
       Swal.fire({
         icon: "error",
-        title: "Failed to add coffee!"
+        title: error.response?.data?.message || "Failed to add coffee!"
       });
     } finally {
       setLoading(false);
@@ -72,10 +85,8 @@ const AddCoffee = () => {
           ← Back to Dashboard
         </Link>
 
-        {/* Container */}
         <div className="bg-[#F4F3F0] w-full rounded-sm p-8 md:p-12 lg:px-24 shadow-sm">
 
-          {/* Header */}
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-bold text-[#374151] mb-4 tracking-tight" style={{ fontFamily: 'cursive' }}>
               Add New Coffee
@@ -85,77 +96,39 @@ const AddCoffee = () => {
             </p>
           </div>
 
-          {/* Form */}
           <form className="space-y-4" onSubmit={handleAddCoffee}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
 
-              {/* Name */}
               <div>
                 <label className="font-semibold text-gray-700">Name</label>
-                <input
-                  name="name"
-                  type="text"
-                  placeholder="Enter coffee name"
-                  className="w-full p-2.5 rounded-sm bg-white focus:ring-1 focus:ring-[#D2B48C]"
-                  required
-                />
+                <input name="name" type="text" className="w-full p-2.5 rounded-sm bg-white" required />
               </div>
 
-              {/* Price */}
               <div>
                 <label className="font-semibold text-gray-700">Price</label>
-                <input
-                  name="price"
-                  type="number"
-                  step="0.01"
-                  placeholder="Enter price"
-                  className="w-full p-2.5 rounded-sm bg-white focus:ring-1 focus:ring-[#D2B48C]"
-                  required
-                />
+                <input name="price" type="number" step="0.01" className="w-full p-2.5 rounded-sm bg-white" required />
               </div>
 
-              {/* Category */}
               <div>
                 <label className="font-semibold text-gray-700">Category</label>
-                <input
-                  name="category"
-                  type="text"
-                  placeholder="Hot / Cold / Tea"
-                  className="w-full p-2.5 rounded-sm bg-white focus:ring-1 focus:ring-[#D2B48C]"
-                  required
-                />
+                <input name="category" type="text" className="w-full p-2.5 rounded-sm bg-white" required />
               </div>
 
-              {/* Details */}
               <div>
                 <label className="font-semibold text-gray-700">Details</label>
-                <input
-                  name="details"
-                  type="text"
-                  placeholder="Coffee description"
-                  className="w-full p-2.5 rounded-sm bg-white focus:ring-1 focus:ring-[#D2B48C]"
-                  required
-                />
+                <input name="details" type="text" className="w-full p-2.5 rounded-sm bg-white" required />
               </div>
             </div>
 
-            {/* Image */}
             <div>
               <label className="font-semibold text-gray-700">Photo URL</label>
-              <input
-                name="photo"
-                type="text"
-                placeholder="Enter image URL"
-                className="w-full p-2.5 rounded-sm bg-white focus:ring-1 focus:ring-[#D2B48C]"
-                required
-              />
+              <input name="photo" type="text" className="w-full p-2.5 rounded-sm bg-white" required />
             </div>
 
-            {/* Button */}
             <button
               type="submit"
-              className={`w-full mt-4 bg-[#D2B48C] hover:bg-[#c4a47c] text-[#331A15] font-semibold py-2.5 rounded-md border border-[#331A15] transition ${loading ? 'opacity-60 cursor-not-allowed' : ''}`}
               disabled={loading}
+              className={`w-full mt-4 bg-[#D2B48C] hover:bg-[#c4a47c] text-[#331A15] font-semibold py-2.5 rounded-md border border-[#331A15] ${loading && 'opacity-60'}`}
             >
               {loading ? 'Adding...' : 'Add Coffee'}
             </button>
